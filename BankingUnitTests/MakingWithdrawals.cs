@@ -7,6 +7,7 @@ public class MakingWithdrawals
     [Theory]
     [InlineData(100)]
     [InlineData(10)]
+    [InlineData(10.25)]
     public void MakingAWithdrawalDecreasesTheBalance(decimal amountToWithdraw)
     {
         // Given
