@@ -24,7 +24,7 @@ public class BankAccount
 
     }
 
-    public void Deposit(decimal amountToDeposit)
+    public virtual void Deposit(decimal amountToDeposit)
     {
         balance += amountToDeposit;
     }
