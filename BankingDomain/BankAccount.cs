@@ -10,6 +10,7 @@ public class BankAccount
 
     public void Withdraw(decimal amountToWithdraw) // behavior
     {
+        if(amountToWithdraw >= balance) { return; }
         balance -= amountToWithdraw;
     }
 
