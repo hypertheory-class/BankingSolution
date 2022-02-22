@@ -4,14 +4,15 @@ namespace BankingUnitTests;
 public class MakingWithdrawals
 {
 
-    [Fact]
-    public void MakingAWithdrawalDecreasesTheBalance()
+    [Theory]
+    [InlineData(100)]
+    [InlineData(10)]
+    public void MakingAWithdrawalDecreasesTheBalance(decimal amountToWithdraw)
     {
         // Given
         var account = new BankAccount();
         var openingBalance = account.GetBalance();
-        var amountToWithdraw = 100M;
-
+       
         // When
         account.Withdraw(amountToWithdraw);
 
