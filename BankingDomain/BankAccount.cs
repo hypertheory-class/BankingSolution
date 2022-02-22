@@ -1,8 +1,10 @@
 ﻿namespace BankingDomain;
 
 
+public enum AccountType {  Standard, Gold };
 public class BankAccount
 {
+    public AccountType Type = AccountType.Standard;
     private decimal balance = 5000M; // data
     public decimal GetBalance() // behavior
     {
@@ -26,6 +28,12 @@ public class BankAccount
 
     public void Deposit(decimal amountToDeposit)
     {
-        balance += amountToDeposit;
+        //balance = Type switch
+        //{
+        //    AccountType.Standard => balance += amountToDeposit,
+        //    AccountType.Gold => balance += amountToDeposit * 1.10M,
+        //    _ => balance
+        //};
+        balance = Type == AccountType.Standard ? balance += amountToDeposit : balance += amountToDeposit * 1.10M;
     }
 }
