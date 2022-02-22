@@ -1,5 +1,6 @@
 ﻿namespace BankingDomain;
 
+
 public class BankAccount
 {
     private decimal balance = 5000M; // data
@@ -10,8 +11,17 @@ public class BankAccount
 
     public void Withdraw(decimal amountToWithdraw) // behavior
     {
-        if(amountToWithdraw >= balance) { return; }
-        balance -= amountToWithdraw;
+        if (amountToWithdraw > balance)
+        {
+
+            throw new OverdraftException();
+        }
+        else
+        {
+            balance -= amountToWithdraw;
+        }
+
+
     }
 
     public void Deposit(decimal amountToDeposit)

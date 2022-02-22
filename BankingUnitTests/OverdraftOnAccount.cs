@@ -1,10 +1,20 @@
 ﻿
 
+using System;
+
 namespace BankingUnitTests;
 
 public class OverdraftOnAccount
 {
+    [Fact]
+    public void AccountHolderCanTakeEntireBalance()
+    {
+        var account = new BankAccount();
 
+        account.Withdraw(account.GetBalance());
+
+        Assert.Equal(0, account.GetBalance());
+    }
 
 
     [Fact]
@@ -13,8 +23,29 @@ public class OverdraftOnAccount
         var account = new BankAccount();
         var openingBalance = account.GetBalance();
 
-        account.Withdraw(openingBalance + 1);
+        try
+        {
+            account.Withdraw(openingBalance + 1);
+        }
+        catch (OverdraftException)
+        {
 
-        Assert.Equal(openingBalance, account.GetBalance());
+            // Swallow the thing.
+        }
+        finally
+        {
+            // this will run if there is an exception or there isn't one.
+            Assert.Equal(openingBalance, account.GetBalance());
+        }
+
+    }
+
+    [Fact]
+    public void OverdraftThrows()
+    {
+        var account = new BankAccount();
+
+        Assert.Throws<OverdraftException>(
+            () => account.Withdraw(account.GetBalance() + 1));
     }
 }
