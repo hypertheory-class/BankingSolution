@@ -34,10 +34,7 @@
 
         }
 
-        private bool DuringBusinessHours()
-        {
-            return DateTime.Now.Hour >= 9 && DateTime.Now.Hour < 17;
-        }
+       
 
         decimal IDoBonusCalculations.ForDeposit(decimal balance, decimal amountToDeposit)
         {
