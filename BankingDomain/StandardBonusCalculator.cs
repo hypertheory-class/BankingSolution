@@ -1,9 +1,12 @@
 ﻿namespace BankingDomain
 {
     // SPOT (Single Point of Truth) for bonus calculation.
-    public class StandardBonusCalculator
+    public class StandardBonusCalculator : IDoBonusCalculations
     {
-       
+        //public decimal ForDeposit(decimal balance, decimal amountToDeposit)
+        //{
+        //   return GetBonusFor(balance, amountToDeposit);
+        //}
 
         public decimal GetBonusFor(decimal balance, decimal amountOfDeposit)
         {
@@ -14,6 +17,11 @@
             {
                 return 0;
             }
+        }
+
+        decimal IDoBonusCalculations.ForDeposit(decimal balance, decimal amountToDeposit)
+        {
+            return GetBonusFor(balance, amountToDeposit);
         }
     }
 }
