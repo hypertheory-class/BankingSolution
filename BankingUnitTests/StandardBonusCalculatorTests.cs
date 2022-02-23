@@ -9,7 +9,7 @@ public class StandardBonusCalculatorTests
     public void AccountsWithAppropriateBalanceGetDeposit()
     {
         var bonusCalculator = new StandardBonusCalculator();
-        var balance = 10000M;
+        var balance = 4000M;
         var amountOfDeposit = 100M;
 
         decimal  bonus = bonusCalculator.GetBonusFor(balance, amountOfDeposit);
@@ -22,7 +22,7 @@ public class StandardBonusCalculatorTests
     public void AccountsBelowCutoffGetNoBalance()
     {
         var bonusCalculator = new StandardBonusCalculator();
-        var balance = 9999.99M;
+        var balance = 3999.99M;
         var amountOfDeposit = 100M;
 
         decimal bonus = bonusCalculator.GetBonusFor(balance, amountOfDeposit);

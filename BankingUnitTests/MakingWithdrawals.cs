@@ -11,7 +11,7 @@ public class MakingWithdrawals
     public void MakingAWithdrawalDecreasesTheBalance(decimal amountToWithdraw)
     {
         // Given
-        var account = new BankAccount();
+        var account = new BankAccount(new TestDoubles.DummyBonusCalculator());
         var openingBalance = account.GetBalance();
        
         // When

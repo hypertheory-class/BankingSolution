@@ -4,6 +4,13 @@
 public class BankAccount
 {
     private decimal balance = 5000M; // data
+    private IDoBonusCalculations _accountDepositBonusCalculator;
+
+    public BankAccount(IDoBonusCalculations accountDepositBonusCalculator)
+    {
+        _accountDepositBonusCalculator = accountDepositBonusCalculator;
+    }
+
     public decimal GetBalance() // behavior
     {
         return balance; // "Sliming"
@@ -26,6 +33,7 @@ public class BankAccount
 
     public void Deposit(decimal amountToDeposit)
     {
-        balance += amountToDeposit;
+        decimal bonus = _accountDepositBonusCalculator.ForDeposit(balance, amountToDeposit);
+        balance += amountToDeposit + bonus;
     }
 }

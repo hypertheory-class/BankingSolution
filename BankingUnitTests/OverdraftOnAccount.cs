@@ -9,7 +9,7 @@ public class OverdraftOnAccount
     [Fact]
     public void AccountHolderCanTakeEntireBalance()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new TestDoubles.DummyBonusCalculator());
 
         account.Withdraw(account.GetBalance());
 
@@ -20,7 +20,7 @@ public class OverdraftOnAccount
     [Fact]
     public void BalanceNotAffectedByOverdraft()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new TestDoubles.DummyBonusCalculator());
         var openingBalance = account.GetBalance();
 
         try
@@ -43,7 +43,7 @@ public class OverdraftOnAccount
     [Fact]
     public void OverdraftThrows()
     {
-        var account = new BankAccount();
+        var account = new BankAccount(new TestDoubles.DummyBonusCalculator());
 
         Assert.Throws<OverdraftException>(
             () => account.Withdraw(account.GetBalance() + 1));
