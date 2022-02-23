@@ -12,13 +12,14 @@ public class DepositUsesBonusCalculator
         // Given
         var stubbedBonusCalculator = new Mock<IDoBonusCalculations>();
         var account = new BankAccount(stubbedBonusCalculator.Object);
-        stubbedBonusCalculator.Setup(c => c.ForDeposit(account.GetBalance(), 100)).Returns(42);
+        var openingBalance = account.GetBalance();
+        stubbedBonusCalculator.Setup(c => c.ForDeposit(openingBalance, 100)).Returns(5323);
 
         // When
         account.Deposit(100);
 
 
         // Then
-        Assert.Equal(5000M + 100 + 42, account.GetBalance());
+        Assert.Equal(openingBalance + 100 + 5323, account.GetBalance());
     }
 }
