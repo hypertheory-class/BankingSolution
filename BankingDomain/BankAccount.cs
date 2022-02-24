@@ -38,6 +38,8 @@ public class BankAccount
 
     public void Deposit(decimal amountToDeposit)
     {
+        if (amountToDeposit < 0) { throw new NoNegativeTransactionAmountsException(); } // "Guards"
+
         decimal bonus = _accountDepositBonusCalculator.ForDeposit(balance, amountToDeposit);
         balance += amountToDeposit + bonus;
     }
