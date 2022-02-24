@@ -11,7 +11,7 @@ public class DepositUsesBonusCalculator
         // so, if the bank account has a balance of 5000, and I deposit 100, then 42 should be added as bonus to the account.
         // Given
         var stubbedBonusCalculator = new Mock<IDoBonusCalculations>();
-        var account = new BankAccount(stubbedBonusCalculator.Object);
+        var account = new BankAccount(stubbedBonusCalculator.Object,  new Mock<INotifyTheFeds>().Object);
         var openingBalance = account.GetBalance();
         stubbedBonusCalculator.Setup(c => c.ForDeposit(openingBalance, 100)).Returns(5323);
 

@@ -5,10 +5,12 @@ public class BankAccount
 {
     private decimal balance = 5000M; // data
     private IDoBonusCalculations _accountDepositBonusCalculator;
+    private INotifyTheFeds _fedNotifier;
 
-    public BankAccount(IDoBonusCalculations accountDepositBonusCalculator)
+    public BankAccount(IDoBonusCalculations accountDepositBonusCalculator, INotifyTheFeds fedNotifier)
     {
         _accountDepositBonusCalculator = accountDepositBonusCalculator;
+        _fedNotifier = fedNotifier;
     }
 
     public decimal GetBalance() // behavior
@@ -25,6 +27,8 @@ public class BankAccount
         }
         else
         {
+            // Writing the Code You Wish You Had
+            _fedNotifier.AccountWithdrawn(this, amountToWithdraw);
             balance -= amountToWithdraw;
         }
 

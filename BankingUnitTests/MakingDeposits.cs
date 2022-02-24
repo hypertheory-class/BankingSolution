@@ -12,7 +12,7 @@ public class MakingDeposits
     public void DepositingIncreasesBalance(decimal amountToDeposit)
     {
         // Given - Create the entire isolated universe that you are testing. (Arrange)
-        var account = new BankAccount(new TestDoubles.DummyBonusCalculator());
+        var account = new BankAccount(new TestDoubles.DummyBonusCalculator(), new Mock<INotifyTheFeds>().Object);
         var openingBalance = account.GetBalance();
         // When (Act)
         account.Deposit(amountToDeposit);
