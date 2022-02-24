@@ -20,27 +20,30 @@ public class BankAccount
 
     public void Withdraw(decimal amountToWithdraw) // behavior
     {
-        if (amountToWithdraw > balance)
-        {
+        GuardNoNegativeNumbers(amountToWithdraw);
+        GuardNoOverdraft(amountToWithdraw, balance);
 
-            throw new OverdraftException();
-        }
-        else
-        {
-            // Writing the Code You Wish You Had
-            _fedNotifier.AccountWithdrawn(this, amountToWithdraw);
-            
-            balance -= amountToWithdraw;
-        }
+        // Writing the Code You Wish You Had
+        _fedNotifier.AccountWithdrawn(this, amountToWithdraw);
 
+        balance -= amountToWithdraw;
 
     }
 
     public void Deposit(decimal amountToDeposit)
     {
-        if (amountToDeposit < 0) { throw new NoNegativeTransactionAmountsException(); } // "Guards"
+        GuardNoNegativeNumbers(amountToDeposit);
 
         decimal bonus = _accountDepositBonusCalculator.ForDeposit(balance, amountToDeposit);
         balance += amountToDeposit + bonus;
+    }
+
+    private void GuardNoNegativeNumbers(decimal amount)
+    {
+        if (amount < 0) throw new NoNegativeTransactionAmountsException();
+    }
+    private void GuardNoOverdraft(decimal amount, decimal balance)
+    {
+        if (amount > balance) throw new OverdraftException();
     }
 }

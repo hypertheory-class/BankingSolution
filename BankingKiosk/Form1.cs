@@ -30,13 +30,16 @@ namespace BankingKiosk
             }
             catch (FormatException)
             {
-
-                MessageBox.Show("Enter a number, Einstein!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Enter a number, Einstein!");
 
             }
-            catch(OverdraftException)
+            catch (OverdraftException)
             {
-                MessageBox.Show("You don't have that much money! GET A JOB!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("You don't have that much money! GET A JOB!");
+            }
+            catch(NoNegativeTransactionAmountsException)
+            {
+                ShowErrorMessage("Type in a positive number, you 1337 Haxx0r!!");
             }
             finally
             {
@@ -46,6 +49,11 @@ namespace BankingKiosk
             }
         }
 
+        // "Never type 'private', always refactor to it.
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
 
     }
