@@ -14,14 +14,39 @@ namespace BankingKiosk
 
         private void btnDeposit_Click(object sender, EventArgs e)
         {
-            _account.Deposit(decimal.Parse(txtAmount.Text));
-            Text = _account.GetBalance().ToString("c");
+            DoTransaction(_account.Deposit);
         }
-
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
-            _account.Withdraw(decimal.Parse(txtAmount.Text));
-            Text = _account.GetBalance().ToString("c");
+            DoTransaction(_account.Withdraw);
         }
+
+        private void DoTransaction(Action<decimal> op)
+        {
+            try
+            {
+                op(decimal.Parse(txtAmount.Text));
+                Text = _account.GetBalance().ToString("c");
+            }
+            catch (FormatException)
+            {
+
+                MessageBox.Show("Enter a number, Einstein!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch(OverdraftException)
+            {
+                MessageBox.Show("You don't have that much money! GET A JOB!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // select all the text in the textbox, and put the cursor there
+                txtAmount.SelectAll();
+                txtAmount.Focus();
+            }
+        }
+
+
+
     }
 }
