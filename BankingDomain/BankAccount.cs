@@ -29,6 +29,7 @@ public class BankAccount
         {
             // Writing the Code You Wish You Had
             _fedNotifier.AccountWithdrawn(this, amountToWithdraw);
+            
             balance -= amountToWithdraw;
         }
 

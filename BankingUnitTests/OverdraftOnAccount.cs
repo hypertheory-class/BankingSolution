@@ -6,10 +6,10 @@ namespace BankingUnitTests;
 
 public class OverdraftOnAccount
 {
-    private BankAccount account;
+    private readonly BankAccount _account;
     public OverdraftOnAccount()
     {
-        account = new BankAccount(new Mock<IDoBonusCalculations>().Object, new Mock<INotifyTheFeds>().Object);
+        _account = new BankAccount(new Mock<IDoBonusCalculations>().Object, new Mock<INotifyTheFeds>().Object);
     }
 
     [Fact]
@@ -17,9 +17,9 @@ public class OverdraftOnAccount
     {
        
 
-        account.Withdraw(account.GetBalance());
+        _account.Withdraw(_account.GetBalance());
 
-        Assert.Equal(0, account.GetBalance());
+        Assert.Equal(0, _account.GetBalance());
     }
 
 
@@ -27,11 +27,11 @@ public class OverdraftOnAccount
     public void BalanceNotAffectedByOverdraft()
     {
        
-        var openingBalance = account.GetBalance();
+        var openingBalance = _account.GetBalance();
 
         try
         {
-            account.Withdraw(openingBalance + 1);
+            _account.Withdraw(openingBalance + 1);
         }
         catch (OverdraftException)
         {
@@ -41,7 +41,7 @@ public class OverdraftOnAccount
         finally
         {
             // this will run if there is an exception or there isn't one.
-            Assert.Equal(openingBalance, account.GetBalance());
+            Assert.Equal(openingBalance, _account.GetBalance());
         }
 
     }
@@ -49,9 +49,7 @@ public class OverdraftOnAccount
     [Fact]
     public void OverdraftThrows()
     {
-      
-
         Assert.Throws<OverdraftException>(
-            () => account.Withdraw(account.GetBalance() + 1));
+            () => _account.Withdraw(_account.GetBalance() + 1));
     }
 }
